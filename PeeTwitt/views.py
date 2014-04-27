@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from decorators import guest_required
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.validators import validate_email
@@ -12,11 +11,11 @@ from pee_user.models import PeeUser
 
 def index(request):
     user = request.user
-    if user:
+    if not user.is_anonymous():
         return redirect('home')
     return render(request,'index.html')
 
-@login_required
+@login_required()
 def home(request):
     user = request.user
     if request.method == 'GET':

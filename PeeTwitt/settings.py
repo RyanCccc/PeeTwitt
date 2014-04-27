@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+PRODUCT = not 'MyProject' in BASE_DIR
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -26,7 +27,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = False
 
-if 'MyProject' in BASE_DIR:
+if not PRODUCT:
     DEBUG = True
     TEMPLATE_DEBUG = True
 
@@ -64,7 +65,7 @@ WSGI_APPLICATION = 'PeeTwitt.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {}
-if DEBUG:
+if not PRODUCT:
     from deploy.get_secret import get_password
     DATABASES = {
         'default': {
@@ -79,6 +80,15 @@ if DEBUG:
 else:
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
+
+
+# Template setting
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.abspath(os.path.join(BASE_DIR, "templates")),
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -102,3 +112,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+LOGIN_URL = 'pee_user_signup'

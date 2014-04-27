@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from decorators import guest_required
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.validators import validate_email
@@ -11,9 +10,11 @@ from django.http import HttpResponse
 from pee_user.models import PeeUser
 
 # Create your views here.
-@guest_required
 def signup(request):
     if request.method == 'GET':
+        user = request.user
+        if user.is_anonymous():
+            return redirect('home')
         return render(request,'user/signup.html', {'error':''})
     elif request.method == 'POST':
         param = request.POST

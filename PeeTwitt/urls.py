@@ -9,7 +9,7 @@ urlpatterns = patterns('PeeTwitt.views',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^/$', 'index', name='index'),
+    url(r'^$', 'index', name='index'),
     url(r'^home/$', 'home', name='home'),
     url(r'^account/', include('pee_user.urls')),
 )
