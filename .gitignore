@@ -2,3 +2,4 @@ venv
 *.pyc
 staticfiles
 password
+.DS_Store

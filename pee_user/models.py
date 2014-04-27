@@ -1,0 +1,36 @@
+from django.db import models
+from django.contrib.auth.models import User as Auth_User
+import string
+import random
+
+class PeeUserManager(models.Manager):
+    def create_user(
+        self,
+        email,
+        password,
+    ):
+        user = Auth_User.objects.create_user(
+                email,
+                email,
+                password,
+                is_active=False
+            )
+        active_key = key_generator()
+        pee_user = self.create(
+                user=user,
+                pwd=password,
+                active_key=active_key,
+            )
+        return pee_user
+
+# Create your models here.
+class PeeUser(models.Model):
+    user = models.OneToOneField(Auth_User, primary_key=True)
+    pwd = models.CharField(max_length=100)
+    active_key = models.CharField(max_length=100)
+    followings = models.ManyToManyField("self", related_name="followees")
+    objects = PeeUserManager()
+
+ 
+def key_generator(size=10, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
