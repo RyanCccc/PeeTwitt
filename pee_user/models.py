@@ -8,11 +8,15 @@ class PeeUserManager(models.Manager):
         self,
         email,
         password,
+        firstname,
+        lastname,
     ):
         user = Auth_User.objects.create_user(
                 email,
                 email,
                 password,
+                first_name=firstname,
+                last_name=lastname,
                 is_active=False
             )
         active_key = key_generator()

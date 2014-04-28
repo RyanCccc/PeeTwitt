@@ -15,39 +15,30 @@ def signup(request):
         user = request.user
         if user.is_anonymous():
             return redirect('home')
-        return render(request,'user/signup.html', {'error':''})
+        return render(request,'user/signup.html', {'error':'', 'succees':False})
     elif request.method == 'POST':
         param = request.POST
+        first_name = param.get('first_name')
+        last_name = param.get('last_name')
         email = param.get('email')
         password = param.get('password')
         repassword = param.get('repassword')
         if not email:
-            return render(request,'user/signup.html', {'error':'Please fill out address'})
+            return render(request,'user/signup.html', {'error':'Please fill out address', 'succees':False})
         if repassword != password:
-            return render(request,'user/signup.html', {'error':'Password not same'})
+            return render(request,'user/signup.html', {'error':'Password not same', 'succees':False})
         try:
             validate_email(email)
         except ValidationError:
-            return render(request,'user/signup.html', {'error':'Please use correct email'})
+            return render(request,'user/signup.html', {'error':'Please use correct email', 'succees':False})
 
         if User.objects.filter(username = username).exists():
-            user = User.objects.get(username = username)
-            if user.is_active:
-                return render(request,'user/signup.html', {'error':'Username Exists'})
-            else:
-                ## TODO
-                #return render(request,'user/signup.html', {'error':'Username Exists'})
-                pass
+            return render(request,'user/signup.html', {'error':'Username Exists', 'succees':False}
         else:
             my_user = PeeUser.objects.create_user(
                     email,
                     password,
+                    first_name,
+                    last_name,
             )
-            user = my_user.user
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            respond = redirect('home')
-            return respond
-
-
-            
+            return render(request,'user/signup.html', {'error':'', 'succees':True}

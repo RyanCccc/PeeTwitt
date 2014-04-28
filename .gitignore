@@ -4,3 +4,4 @@ staticfiles
 password
 .DS_Store
 venv
+*sublime*
