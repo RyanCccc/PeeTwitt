@@ -27,9 +27,9 @@ DEBUG = False
 
 TEMPLATE_DEBUG = False
 
-if not PRODUCT:
-    DEBUG = True
-    TEMPLATE_DEBUG = True
+# if not PRODUCT:
+#     DEBUG = True
+#     TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
