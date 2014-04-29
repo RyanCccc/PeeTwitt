@@ -26,6 +26,7 @@
     <script src="{% static "js/bootstrap.min.js" %}"></script>
     <link href="{% static "css/base.css" %}" rel="stylesheet">
     <link href="{% static "css/index.css" %}" rel="stylesheet">
+    <link href="{% static "css/home.css" %}" rel="stylesheet">
     {% block js %}{% endblock %}
     {% block css %}{% endblock %}
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -78,13 +79,25 @@
                 <li><a href="#">Notification</a></li>
                 <li><a href="#">Me</a></li>
             </ul>
+
+              <form>
+              <div class="navbar-form navbar-left form-group" role="search" action="#">
+                <input type="text" class="form-control" name="keyword" placeholder="Search by name">
+                <button type="submit" class="btn btn-primary" name='button' value='search'>Go!</button>
+              </div>
+              </form>
+
+            <ul class="nav navbar-nav navbar-right pull-right">
+                <li>
+                    <a href="/account/signout">
+                    <button type="submit" id="btnLogin" class="navbar-right btn btn-danger btn-xs">
+                        Log Out
+                    </button>
+                    </a>            
+                </li>
+            </ul>
         </div>
-        <!-- Log out -->
-        <a href="/account/signout">
-        <button type="submit" id="btnLogin" class="btn btn-success">
-            Log Out
-        </button>
-        </a>
+        
     </nav>
     {% endblock stdnav %}
 
