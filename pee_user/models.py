@@ -17,8 +17,9 @@ class PeeUserManager(models.Manager):
                 password,
                 first_name=firstname,
                 last_name=lastname,
-                is_active=False
             )
+        user.is_active = False
+        user.save()
         active_key = key_generator()
         pee_user = self.create(
                 user=user,

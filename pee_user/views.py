@@ -15,7 +15,7 @@ from pee_user.models import PeeUser
 def signup(request):
     if request.method == 'GET':
         user = request.user
-        if not user.is_anonymous():
+        if user.is_authenticated() and user.is_active:
             return redirect('home')
         return render(request,'user/signup.html', {'error':'', 'succees':False})
     elif request.method == 'POST':
@@ -25,6 +25,8 @@ def signup(request):
         email = param.get('email')
         password = param.get('password')
         repassword = param.get('repassword')
+        if not first_name or not last_name:
+            return render(request,'user/signup.html', {'error':'Please fill out all required fields', 'succees':False})
         if not email:
             return render(request,'user/signup.html', {'error':'Please fill out address', 'succees':False})
         if repassword != password:
@@ -57,7 +59,7 @@ def resend(request):
     import ipdb; ipdb.set_trace()
     send_mail('Verification from PeeTwitt', 'Here is your verification url %s'%verify_url, 'purduetweet@gmail.com', [email,])
     result = json.dumps({'succees':1})
-    return HttpResponse(result, content_type="application/json"))
+    return HttpResponse(result, content_type="application/json")
 
 def verify(request):
     param = request.GET
@@ -77,7 +79,7 @@ def verify(request):
 def signin(request):
     if request.method == 'GET':
         user = request.user
-        if not user.is_anonymous():
+        if user.is_authenticated() and user.is_active:
             return redirect('home')
         context = {
             'next': request.GET.get('next'),
@@ -91,6 +93,11 @@ def signin(request):
         _next = param.get('next')
         user = authenticate(username=username, password=password)
         if user is not None:
+            if not user.is_active:
+                return render(
+                        request,'index.html',
+                        {'error':'Not verified yet!'}
+                    )
             login(request, user)
             if _next!='None' and _next:
                 respond = redirect(_next)
