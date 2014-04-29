@@ -1,5 +1,50 @@
 {% extends "base.html" %}
+{% block stdnav %}
+{% endblock %}
 
 {% block content %}
-<h1>Cannot find the page</h1>
+
+<div class="container mybody row">
+	<div class="col-md-4 row">
+		
+
+
+	</div>
+
+	<div class="col-md-8">
+				<form name="sign_up" action="/account/signup/" method="POST">{% csrf_token %}
+					<span>First Name: </span>
+                    <div class="button ">
+                    	<input class="form-control button" name="firstname" type="text" placeholder="Your firstname">
+                    </div>
+
+                    <span>Last Name: </span>
+                    <div class="button">
+                    	<input class="form-control button" name="lastname" type="text" placeholder="Your lastname"><br>
+                    </div>
+
+                    <span>E-mail: </span>
+                    <div class="button ">
+                    	<input class="form-control button" name="email" type="text" placeholder="E-mail address">
+                    </div>
+
+                    <span>password: </span>
+                    <div class="button ">
+                    	<input class="form-control button" name="password" type="password" placeholder="password">
+                    </div>
+
+                    <span>password confirm: </span>
+                    <div class="button ">
+                    	<input class="form-control button" name="pwconfirm" type="password" placeholder="confirm password">
+                    </div>
+
+                    <button type="submit" id="btnLogin" class="btn btn-warning">
+  						<span class="glyphicon glyphicon-plus"></span>
+                      	Join
+                    </button>
+                </form>
+    </div>
+
+</div>
+
 {% endblock %}
