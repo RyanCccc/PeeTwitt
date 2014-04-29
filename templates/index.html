@@ -23,7 +23,7 @@
         </div>
         {% endif %}
 
-    <form name="sign_in" action="{% url pee_user_signin %}" method="POST">{% csrf_token %} 
+    <form name="sign_in" action="{% url "pee_user_signin" %}" method="POST">{% csrf_token %} 
         <div class="button ">
             <input class="form-control button" name="email" id="username" type="text" placeholder="PUaccount">
         </div>
@@ -37,7 +37,7 @@
         <br>
     </form>
 
-    <a href="{% url pee_user_signup %}">
+    <a href="{% url "pee_user_signup" %}">
         <button type="submit" id="btnLogin" class="btn btn-success">
             register
         </button>
