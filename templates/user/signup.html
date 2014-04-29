@@ -6,13 +6,13 @@
 
 <div class="container mybody row">
 	<div class="col-md-4 row">
-		
+
 
 
 	</div>
 
 	<div class="col-md-8">
-				<form name="sign_in" action="account/signin/" method="POST">{% csrf_token %}
+				<form name="sign_up" action="/account/signup/" method="POST">{% csrf_token %}
 					<span>First Name: </span>
                     <div class="button ">
                     	<input class="form-control button" name="firstname" type="text" placeholder="Your firstname">
