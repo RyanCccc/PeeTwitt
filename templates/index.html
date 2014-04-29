@@ -1,12 +1,12 @@
 {% extends "base.html" %} {% block stdnav %} {% endblock %} {% block content %}
 
 <div class="container mybody row">
-    <form name="sign_in" action="/account/signin/" method="POST">{% csrf_token %} 
-        {% if error %}
+    {% if error %}
         <div class="alert alert-error">{{ error }}</div>
-        {% endif %}
+    {% endif %}
+    <form name="sign_in" action="/account/signin/" method="POST">{% csrf_token %} 
         <div class="button ">
-            <input class="form-control button" name="email" id="username" type="text" placeholder="PUaccount">
+            <input class="form-control button" name="email" id="username" type="text" placeholder="E-mail address">
         </div>
         <div class="button">
             <input class="form-control button" name="password" id="password" type="password" placeholder="Password">
