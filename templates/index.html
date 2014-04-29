@@ -5,15 +5,17 @@
 {% block content %}
 <div class="container mybody">
 	<div class="row">
-                <div class="button ">
-                	<input class="form-control button" name="email" id="username" type="text" placeholder="PUaccount">
-                </div>
-                <div class="button">
-                	<input class="form-control button" name="password" id="password" type="password" placeholder="Password"><br>
-                </div>
-                <button type="submit" id="btnLogin" class="btn btn-warning">
-                  Sign in
-                </button><br>
+				<form name="sign_in" action="account/signin/" method="POST">{% csrf_token %}
+                    <div class="button ">
+                    	<input class="form-control button" name="email" id="username" type="text" placeholder="PUaccount">
+                    </div>
+                    <div class="button">
+                    	<input class="form-control button" name="password" id="password" type="password" placeholder="Password"><br>
+                    </div>
+                    <button type="submit" id="btnLogin" class="btn btn-warning">
+                      Sign in
+                    </button><br>
+                </form>
                 <button type="submit" id="btnLogin" class="btn btn-success">
                   register
                 </button>
