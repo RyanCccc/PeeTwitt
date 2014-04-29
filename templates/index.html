@@ -1,5 +1,26 @@
 {% extends "base.html" %}
+{% block stdnav %}
+{% endblock %}
 
 {% block content %}
-<h1>Cannot find the page</h1>
+<div class="container mybody">
+	<div class="row">
+				<form name="sign_in" action="account/signin/" method="POST">{% csrf_token %}
+                    <div class="button ">
+                    	<input class="form-control button" name="email" id="username" type="text" placeholder="PUaccount">
+                    </div>
+                    <div class="button">
+                    	<input class="form-control button" name="password" id="password" type="password" placeholder="Password"><br>
+                    </div>
+                    <button type="submit" id="btnLogin" class="btn btn-warning">
+                      Sign in
+                    </button><br>
+                </form>
+                <button type="submit" id="btnLogin" class="btn btn-success">
+                  register
+                </button>
+                
+            </div>
+
+</div>
 {% endblock %}
