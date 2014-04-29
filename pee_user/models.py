@@ -34,6 +34,7 @@ class PeeUser(models.Model):
     pwd = models.CharField(max_length=100)
     active_key = models.CharField(max_length=100, unique=True)
     followings = models.ManyToManyField("self", related_name="followers")
+    avatar = models.ImageField(upload_to='avatars')
     objects = PeeUserManager()
     def delete(self, *args, **kwargs):
         self.user.delete()
