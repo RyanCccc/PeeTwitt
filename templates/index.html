@@ -1,10 +1,29 @@
-{% extends "base.html" %} {% block stdnav %} {% endblock %} {% block content %}
+{% extends "base.html" %} 
+
+{% load staticfiles %}
+{% block js %}
+<script src="{% static "js/users.js" %}"></script>
+{% endblock %}
+{% block stdnav %} 
+{% endblock %} 
+{% block content %}
 
 <div class="container mybody row">
-    <form name="sign_in" action="/account/signin/" method="POST">{% csrf_token %} 
-        {% if error %}
+
+    {% if error %}
         <div class="alert alert-error">{{ error }}</div>
         {% endif %}
+        {% if email %}
+        <div class="alert alert-error">
+            <span>Verfication e-mail already sent! Check your mailbox.</span>
+            <button id="resend" type="submit" class="btn btn-primary">
+                Resend
+            </button>
+            <input id="created_email" type="hidden" value="{{ email }}"/>
+        </div>
+        {% endif %}
+
+    <form name="sign_in" action="{% url pee_user_signin %}" method="POST">{% csrf_token %} 
         <div class="button ">
             <input class="form-control button" name="email" id="username" type="text" placeholder="PUaccount">
         </div>
@@ -18,7 +37,7 @@
         <br>
     </form>
 
-    <a href="/account/signup">
+    <a href="{% url pee_user_signup %}">
         <button type="submit" id="btnLogin" class="btn btn-success">
             register
         </button>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block js %}
 <script src="{% static "js/users.js" %}"></script>
 {% endblock %}
@@ -14,27 +14,28 @@
 {% block content %}
 
 <div class="container mybody row">
+    {% if error %}
+        <div class="alert alert-error">{{ error }}</div>
+    {% endif %}
+    {% if email %}
+        <div class="alert alert-error">
+            <span>Verfication e-mail already sent! Check your mailbox.</span>
+            <button id="resend" type="submit" class="btn btn-primary">
+                Resend
+            </button>
+            <input id="created_email" type="hidden" value="{{ email }}"/>
+        </div>
+    {% endif %}
 	<div class="col-md-4 row">
-
+                    
 
 
 	</div>
 
 	<div class="col-md-8">
-				<form name="sign_up" action="/account/signup/" method="POST">{% csrf_token %}
-                    {% if error %}
-                        <div class="alert alert-error">{{ error }}</div>
-                    {% endif %}
-                    {% if success %}
-                        <div class="alert alert-error">
-                            <span>Verfication e-mail already sent! Check your mailbox.</span>
-                            <button type="submit" class="btn btn-primary">
-                                Resend
-                            </button>
-                            </div>
-
-                        </div>
-                    {% endif %}
+				<form name="sign_up" action="{% url pee_user_signup %}" method="POST">{% csrf_token %}
+                    
+                    
 					<span>First Name: </span>
                     <div class="button ">
                     	<input class="form-control button" name="firstname" type="text" placeholder="Your firstname">

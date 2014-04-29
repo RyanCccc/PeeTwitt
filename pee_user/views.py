@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
+from django.views.decorators.csrf import csrf_exempt
 import json
 
 from pee_user.models import PeeUser
@@ -18,7 +19,7 @@ def signup(request):
         user = request.user
         if user.is_authenticated() and user.is_active:
             return redirect('home')
-        return render(request,'user/signup.html', {'error':'', 'succees':'False'})
+        return render(request,'user/signup.html', {'error':''})
     elif request.method == 'POST':
         param = request.POST
         first_name = param.get('firstname')
@@ -27,18 +28,18 @@ def signup(request):
         password = param.get('password')
         repassword = param.get('pwconfirm')
         if not first_name or not last_name:
-            return render(request,'user/signup.html', {'error':'Please fill out all required fields', 'succees':'False'})
+            return render(request,'user/signup.html', {'error':'Please fill out all required fields'})
         if not email:
-            return render(request,'user/signup.html', {'error':'Please fill out address', 'succees':'False'})
+            return render(request,'user/signup.html', {'error':'Please fill out address'})
         if repassword != password:
-            return render(request,'user/signup.html', {'error':'Password not same', 'succees':'False'})
+            return render(request,'user/signup.html', {'error':'Password not same'})
         try:
             validate_email(email)
         except ValidationError:
-            return render(request,'user/signup.html', {'error':'Please use correct email', 'succees':'False'})
+            return render(request,'user/signup.html', {'error':'Please use correct email'})
 
         if User.objects.filter(username = email).exists():
-            return render(request,'user/signup.html', {'error':'Email Exists', 'succees':'False'})
+            return render(request,'user/signup.html', {'error':'Email Exists'})
         else:
             my_user = PeeUser.objects.create_user(
                     email,
@@ -48,18 +49,20 @@ def signup(request):
             )
             request.POST = {'email':email}
             resend(request)
-            return render(request,'user/signup.html', {'error':'', 'succees':'True'})
+            return render(request,'user/signup.html', {'error':'', 'email':email})
 
+@csrf_exempt
 def resend(request):
     param = request.POST
     email = param.get('email')
+    print email
     user = User.objects.get(email=email)
     my_user = user.peeuser
     verify_url = request.build_absolute_uri(reverse('pee_user_verify'))
     verify_url += '?' + 'key=' + my_user.active_key
     #import ipdb; ipdb.set_trace()
     send_mail('Verification from PeeTwitt', 'Here is your verification url %s'%verify_url, 'purduetweet@gmail.com', [email,])
-    result = json.dumps({'succees':1})
+    result = json.dumps({'success':1})
     return HttpResponse(result, content_type="application/json")
 
 def verify(request):
@@ -71,21 +74,28 @@ def verify(request):
             user = my_user.user
             user.is_active = True
             user.save()
-            return render(request,'index.html', {'error':'', 'succees':True})
+            return render(request,'index.html', {'error':'', 'success':True})
         except:
-            return render(request,'index.html', {'error':'Activation key error', 'succees':False})
+            return render(request,'index.html', {'error':'Activation key error', 'success':False})
     else:
-        return render(request,'index.html', {'error':'No verification key', 'succees':False})
+        return render(request,'index.html', {'error':'No verification key', 'success':False})
 
 def signin(request):
     if request.method == 'GET':
         user = request.user
         if user.is_authenticated() and user.is_active:
             return redirect('home')
-        context = {
-            'next': request.GET.get('next'),
-            'error':'',
-        }
+        elif user.is_authenticated() and not user.is_active:
+            context = {
+                'next': request.GET.get('next'),
+                'error':'',
+                'email':user.peeuser.email,
+            }
+        else:
+            context = {
+                'next': request.GET.get('next'),
+                'error':'',
+            }
         return render(request,'index.html', context)
     elif request.method == 'POST':
         param = request.POST
@@ -97,7 +107,10 @@ def signin(request):
             if not user.is_active:
                 return render(
                         request,'index.html',
-                        {'error':'Not verified yet!'}
+                        {
+                            'error':'Not verified yet!',
+                            'email':user.email,
+                        }
                     )
             login(request, user)
             if _next!='None' and _next:
