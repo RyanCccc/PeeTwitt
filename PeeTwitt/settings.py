@@ -114,3 +114,9 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_URL = 'pee_user_signup'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'purduetweet@gmail.com'
+EMAIL_HOST_PASSWORD = 'putt@gmail'
+EMAIL_PORT = 587

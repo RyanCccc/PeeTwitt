@@ -31,10 +31,9 @@ class PeeUserManager(models.Manager):
 class PeeUser(models.Model):
     user = models.OneToOneField(Auth_User, primary_key=True)
     pwd = models.CharField(max_length=100)
-    active_key = models.CharField(max_length=100)
-    followings = models.ManyToManyField("self", related_name="followees")
+    active_key = models.CharField(max_length=100, unique=True)
+    followings = models.ManyToManyField("self", related_name="followers")
     objects = PeeUserManager()
 
- 
 def key_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
