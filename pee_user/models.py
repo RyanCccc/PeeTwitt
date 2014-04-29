@@ -35,6 +35,9 @@ class PeeUser(models.Model):
     active_key = models.CharField(max_length=100, unique=True)
     followings = models.ManyToManyField("self", related_name="followers")
     objects = PeeUserManager()
+    def delete(self, *args, **kwargs):
+        self.user.delete()
+        return super(self.__class__, self).delete(*args, **kwargs)
 
 def key_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))

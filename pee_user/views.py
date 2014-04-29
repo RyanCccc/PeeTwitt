@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login, logout
 from django.http import HttpResponse
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 import json
 
 from pee_user.models import PeeUser
@@ -17,7 +18,7 @@ def signup(request):
         user = request.user
         if user.is_authenticated() and user.is_active:
             return redirect('home')
-        return render(request,'user/signup.html', {'error':'', 'succees':False})
+        return render(request,'user/signup.html', {'error':'', 'succees':'False'})
     elif request.method == 'POST':
         param = request.POST
         first_name = param.get('firstname')
@@ -26,18 +27,18 @@ def signup(request):
         password = param.get('password')
         repassword = param.get('pwconfirm')
         if not first_name or not last_name:
-            return render(request,'user/signup.html', {'error':'Please fill out all required fields', 'succees':False})
+            return render(request,'user/signup.html', {'error':'Please fill out all required fields', 'succees':'False'})
         if not email:
-            return render(request,'user/signup.html', {'error':'Please fill out address', 'succees':False})
+            return render(request,'user/signup.html', {'error':'Please fill out address', 'succees':'False'})
         if repassword != password:
-            return render(request,'user/signup.html', {'error':'Password not same', 'succees':False})
+            return render(request,'user/signup.html', {'error':'Password not same', 'succees':'False'})
         try:
             validate_email(email)
         except ValidationError:
-            return render(request,'user/signup.html', {'error':'Please use correct email', 'succees':False})
+            return render(request,'user/signup.html', {'error':'Please use correct email', 'succees':'False'})
 
-        if User.objects.filter(username = username).exists():
-            return render(request,'user/signup.html', {'error':'Username Exists', 'succees':False})
+        if User.objects.filter(username = email).exists():
+            return render(request,'user/signup.html', {'error':'Email Exists', 'succees':'False'})
         else:
             my_user = PeeUser.objects.create_user(
                     email,
@@ -47,7 +48,7 @@ def signup(request):
             )
             request.POST = {'email':email}
             resend(request)
-            return render(request,'user/signup.html', {'error':'', 'succees':True})
+            return render(request,'user/signup.html', {'error':'', 'succees':'True'})
 
 def resend(request):
     param = request.POST
@@ -56,7 +57,7 @@ def resend(request):
     my_user = user.peeuser
     verify_url = request.build_absolute_uri(reverse('pee_user_verify'))
     verify_url += '?' + 'key=' + my_user.active_key
-    import ipdb; ipdb.set_trace()
+    #import ipdb; ipdb.set_trace()
     send_mail('Verification from PeeTwitt', 'Here is your verification url %s'%verify_url, 'purduetweet@gmail.com', [email,])
     result = json.dumps({'succees':1})
     return HttpResponse(result, content_type="application/json")
