@@ -1,0 +1,95 @@
+.resultbox{
+	margin-bottom: 20px;
+	background-color: #fff;
+	border: 1px solid rgb(223, 223, 223);
+	border-radius: 10px;
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+	box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+
+.resultbox>.box-heading {
+	color: #3298DB;
+	background-color: #ECFDFF;
+	border-color: #C0E1F3;
+}
+
+.box-heading {
+	padding: 10px 15px;
+	border-bottom: 1px solid transparent;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.box-body{
+	margin-top: 0px;
+	margin-bottom: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding: 5px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 425px;
+}
+
+.post{
+	border-bottom: 1px solid #C0E1F3;
+}
+
+.avatartweetpic{
+	vertical-align: middle;
+	text-align: center;
+	max-height: 100px;
+	max-width: 100px;
+	border: #A9A9A9 1px solid;
+	border-radius: 3px;
+	width: expression(this.height >135 ? (135*(this.width/this.height)): auto);
+	height: expression(this.height >135 ? 135: auto);
+	margin: 2px;
+	padding: 2px;
+}
+
+.avatarpostpic{
+	max-height: 50px;
+	max-width: 50px;
+}
+.post-right{
+	margin-left: 5px;
+	padding: 0px;
+	word-wrap: break-word;
+}
+
+.tweet{
+	min-height: 105px;
+}
+
+.tweetreply{
+	min-height: none;
+}
+
+.comments{
+
+}
+
+.reply{
+	border-top: 1px solid #F1C2E0;
+}
+
+.reply2{
+	margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

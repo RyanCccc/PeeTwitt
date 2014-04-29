@@ -3,5 +3,76 @@
 {% block welcomenav %}
 {% endblock %}
 {% block content %}
-<h1>Cannot find the page</h1>
+
+<div class="container mybody">
+	<div class="col-md-4 row"><!--display the Avatar picture and post field-->
+	</div>
+
+	<div class="col-md-8"><!--display new tweets-->
+		<div class="resultbox">
+			<div class="box-heading">
+				<h4 style="margin:0px;">New Tweets :</h4>
+			</div>
+
+			<div class="box-body">
+
+				<div class="row no-gutter post">
+
+
+					<div class="col-md-12">
+					<div class="col-md-3" style="width:20%;">
+						<a href="#">
+							<img class="avatartweetpic" onload="resizeImage(this)" src="http://www.loveinhearts.com/wp-content/themes/lih_theme/images/temp_img/avatar_default_woman.jpg">
+						</a>
+					</div>
+
+					<div class="col-md-9" style="padding-left:0px">
+						<div class="post-right">
+							<div class="tweet">
+								<span><b>Joe Chow</b></span><span> at 21:20:59</span><br>
+								<span>tweet content balabalabalabalabalabalabalabalabalabalabla</span>						
+							</div>
+
+							<div class="comments"><!--reply #1-->
+								<div class="col-xs-2" style="width:18%;">
+									<a href="#">
+										<img class="avatartweetpic" onload="resizeImage(this)" style="max-height:40px;max-width:40px;" src="http://www.loveinhearts.com/wp-content/themes/lih_theme/images/temp_img/avatar_default_woman.jpg">
+									</a>
+								</div>
+							
+								<div class="post-right">
+									<div>
+										<span><b>Rendong Chen</b></span><span> at 23:28:59</span><br>
+										<span>reply content balabal abalabalabalabalabalabalabalabalabla</span>						
+								</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+						<div class="col-md-12 reply">
+							<div class="reply2">
+							<div class="col-xs-3" style="width:18%;">
+									<a href="#">
+										<img class="avatartweetpic" onload="resizeImage(this)" style="max-height:50px;max-width:50px;" src="http://wiseheartdesign.com/images/articles/default-avatar.png">
+									</a>
+							</div>
+							
+							<div class="col-xs-9 post-right">
+									<input type="text" class="form-control" name="reply" placeholder="Reply...">
+                					<button type="submit" class="btn btn-primary btn-xs" name='button' value='reply'>reply</button>
+							</div>
+						</div>
+						</div>
+					</div>
+
+					
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
