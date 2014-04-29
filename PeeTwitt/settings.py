@@ -113,7 +113,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-LOGIN_URL = 'pee_user_signup'
+LOGIN_URL = 'pee_user_signin'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
