@@ -3,8 +3,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mybody">
-	<div class="row">
+
+<div class="container mybody row">
 				<form name="sign_in" action="account/signin/" method="POST">{% csrf_token %}
                     <div class="button ">
                     	<input class="form-control button" name="email" id="username" type="text" placeholder="PUaccount">
@@ -16,11 +16,11 @@
                       Sign in
                     </button><br>
                 </form>
-                <button type="submit" id="btnLogin" class="btn btn-success">
-                  register
-                </button>
-                
-            </div>
-
+                <a href="account/signup">
+                    <button type="submit" id="btnLogin" class="btn btn-success">
+                        register
+                    </button>
+                </a>
 </div>
+
 {% endblock %}
