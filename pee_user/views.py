@@ -20,11 +20,11 @@ def signup(request):
         return render(request,'user/signup.html', {'error':'', 'succees':False})
     elif request.method == 'POST':
         param = request.POST
-        first_name = param.get('first_name')
-        last_name = param.get('last_name')
+        first_name = param.get('firstname')
+        last_name = param.get('lastname')
         email = param.get('email')
         password = param.get('password')
-        repassword = param.get('repassword')
+        repassword = param.get('pwconfirm')
         if not first_name or not last_name:
             return render(request,'user/signup.html', {'error':'Please fill out all required fields', 'succees':False})
         if not email:
