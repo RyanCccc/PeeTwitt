@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-# from pee_user.models import PeeUser, ImageUploadForm
+from pee_user.models import PeeUser
 
 # Create your views here.
 def signup(request):
@@ -61,6 +61,7 @@ def resend(request):
     verify_url = request.build_absolute_uri(reverse('pee_user_verify'))
     verify_url += '?' + 'key=' + my_user.active_key
     #import ipdb; ipdb.set_trace()
+    print verify_url
     send_mail('Verification from PeeTwitt', 'Here is your verification url %s'%verify_url, 'purduetweet@gmail.com', [email,])
     result = json.dumps({'success':1})
     return HttpResponse(result, content_type="application/json")
