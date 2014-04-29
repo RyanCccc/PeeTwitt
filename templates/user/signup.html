@@ -26,7 +26,14 @@
                         <div class="alert alert-error">{{ error }}</div>
                     {% endif %}
                     {% if success %}
-                        <div class="alert alert-error">Resend!</div>
+                        <div class="alert alert-error">
+                            <span>Verfication e-mail already sent! Check your mailbox.</span>
+                            <button type="submit" class="btn btn-primary">
+                                Resend
+                            </button>
+                            </div>
+
+                        </div>
                     {% endif %}
 					<span>First Name: </span>
                     <div class="button ">
