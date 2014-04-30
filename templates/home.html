@@ -8,5 +8,49 @@
 
 {% block content %}
 
+<div class="container mybody">
+    <div class="col-md-3 row profilebox">
+        <!--display the Avatar picture and post field-->
+        <div class="padding">
+            <div class="avatarbox">
+                <!-- <div class="col-xs-4"> -->
+                <a href="#" class="avatarposition">
+                    <img class="padding" onload="" style="max-height:75px;max-width:75px;" src="{% static my_user.avatar.url %}" center center>
+                </a>
+                <p1 class="avatarposition" style="color: white"><b>{{ user.peeuser.full_name }}</b>
+                </p1>
+                <!--  </div> -->
+            </div>
 
+        </div>
+
+        <nav class="navbar navbar-default" style="border-radius: 0px;">
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-static-top">
+                    <li><a href="/account/profile/history/">Tweets<br>{{ user.peeuser.tweet_set.count }}</a>
+                    </li>
+                    <li><a href="/account/profile/following">Following<br>{{ user.peeuser.get_following|length }}</a>
+                    </li>
+                    <li><a href="/account/profile/follower">Follower<br>{{ user.peeuser.get_followers|length }}</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="padding" style="background-color: #ECFDFF;">
+            <form name="posttweet" action="#" method="POST">{% csrf_token %}
+                <textarea id="content_input" style="width: 100%; height: 100px;" placeholder="Tweet at here..."></textarea>
+
+                <button type="button" id="btnPost" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span id="btnPostText">Post</span>
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+
+
+</div>
 {% endblock %}
