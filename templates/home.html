@@ -17,7 +17,7 @@
                 <a href="#" class="avatarposition">
                     <img class="padding" onload="" style="max-height:75px;max-width:75px;" src="" center center>
                 </a>
-                <p1 class="avatarposition" style="color: white"><b></b>
+                <p1 class="avatarposition" style="color: white"><b>{{ user.peeuser.full_name }}</b>
                 </p1>
                 <!--  </div> -->
             </div>
@@ -27,11 +27,11 @@
         <nav class="navbar navbar-default" style="border-radius: 0px;">
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-static-top">
-                    <li><a href="/account/profile/history/">Tweets<br></a>
+                    <li><a href="/account/profile/history/">Tweets<br>{{ user.peeuser.tweet_set.count }}</a>
                     </li>
-                    <li><a href="/account/profile/following">Following<br></a>
+                    <li><a href="/account/profile/following">Following<br>{{ user.peeuser.get_following|length }}</a>
                     </li>
-                    <li><a href="/account/profile/follower">Follower<br></a>
+                    <li><a href="/account/profile/follower">Follower<br>{{ user.peeuser.get_followers|length }}</a>
                     </li>
                 </ul>
             </div>
