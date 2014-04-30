@@ -27,7 +27,7 @@
         <nav class="navbar navbar-default" style="border-radius: 0px;">
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-static-top">
-                    <li><a href="/account/profile/history/">Tweets<br><span id="tweets_count" >{{ user.peeuser.tweet_set.count }}</span></a>
+                    <li><a href="{% url "tweet_history" %}">Tweets<br><span id="tweets_count" >{{ user.peeuser.tweet_set.count }}</span></a>
                     </li>
                     <li><a href="/account/profile/following">Following<br><span id="following_count">{{ user.peeuser.get_following|length }}</span></a>
                     </li>
@@ -57,7 +57,7 @@
         <!--display new tweets-->
         <div class="resultbox">
             <div id="heading" class="box-heading">
-                <h4 style="margin:0px;">New Tweets :</h4>
+                <h4 style="margin:0px;">{{ title }}</h4>
             </div>
             <div id="tweets_block" class="box-body">
                 {% for tweet in tweets %}

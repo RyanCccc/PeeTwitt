@@ -24,12 +24,8 @@ def load_more_tweets(request):
     try:
         tweets = Tweet.objects.filter(author__in=followings, timestamp__gt=curr_timestamp).order_by('-timestamp')
         if tweets:
-            print curr_timestamp_str
-            old_curr = curr_timestamp
             curr_timestamp = tweets[0].timestamp
             curr_timestamp_str = get_timestamp_str(curr_timestamp, True)
-            print curr_timestamp_str
-            print curr_timestamp>old_curr
             template = Template('{% for tweet in tweets %}{% include "single_tweet.html" %}{% endfor %}')
             c = Context({
                 'tweets': tweets,
@@ -134,3 +130,45 @@ def return_success(success=True , error=None):
     else:
         context_j = json.dumps({'success':success,})
     return HttpResponse(context_j, content_type="application/json")
+
+@login_required()
+def history(request):
+    user = request.user
+    my_user = PeeUser.objects.get(user=user)
+    tweets = my_user.tweet_set.all().order_by('-timestamp')
+    context = {
+        'my_user':my_user,
+        'tweets': tweets,
+        'title':'My tweets :',
+    }
+    return render(request, 'home.html', context)
+
+
+@login_required()
+def notification(request):
+    user = request.user
+    my_user = PeeUser.objects.get(user=user)
+    tweets = my_user.tweet_set.filter(has_new_reply=True).order_by('-timestamp')
+    for tweet in tweets:
+        tweet.has_new_reply = False
+        tweet.save()
+    context = {
+        'my_user':my_user,
+        'tweets': tweets,
+        'title':'These tweets have new replies :',
+    }
+    return render(request, 'home.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

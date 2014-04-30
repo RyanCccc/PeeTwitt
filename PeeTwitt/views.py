@@ -28,7 +28,6 @@ def home(request):
     context = {
         'my_user':my_user,
         'tweets': tweets,
+        'title':'New Tweets :',
     }
-    if tweets:
-        context['curr_pk'] = tweets[0].pk
     return render(request, 'home.html', context)
