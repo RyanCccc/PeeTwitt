@@ -156,6 +156,7 @@ def notification(request):
         'my_user':my_user,
         'tweets': tweets,
         'title':'These tweets have new replies :',
+        'no_post':True,
     }
     return render(request, 'home.html', context)
 
