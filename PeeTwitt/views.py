@@ -22,11 +22,11 @@ def index(request):
 def home(request):
     user = request.user
     my_user = PeeUser.objects.get(user=user)
-    followings = list(my_user.followings.all())
+    followings = list(my_user.get_following())
     followings.append(my_user)
     tweets = Tweet.objects.filter(author__in=followings).order_by('-timestamp')
     context = {
-        'user' : my_user,
+        'my_user':my_user,
         'tweets': tweets,
     }
     if tweets:

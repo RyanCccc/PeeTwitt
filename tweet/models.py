@@ -1,5 +1,6 @@
 from django.db import models
 from pee_user.models import PeeUser
+from django.utils import formats
 
 
 class ReplyManager(models.Manager):
@@ -26,9 +27,15 @@ class Tweet(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     has_new_reply = models.BooleanField(default=False)
 
+    def get_timestamp_str(self):
+        return formats.date_format(self.timestamp, "DATETIME_FORMAT")
+
 class Reply(models.Model):
     author = models.ForeignKey(PeeUser)
     tweet = models.ForeignKey(Tweet)
     content = models.CharField(max_length=140)
     timestamp = models.DateTimeField(auto_now_add=True)
     objects = ReplyManager()
+
+    def get_timestamp_str(self):
+        return formats.date_format(self.timestamp, "DATETIME_FORMAT")

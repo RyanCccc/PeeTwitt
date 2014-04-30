@@ -42,7 +42,6 @@
 	padding: 5px;
 	overflow-y: auto;
 	overflow-x: hidden;
-	height: 1000px;
 }
 
 .post{
@@ -93,12 +92,6 @@
 .reply2{
 	margin-top: 10px;
 }
-
-
-
-
-
-
 
 
 
