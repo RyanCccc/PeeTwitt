@@ -1,7 +1,6 @@
 $(function() {
     setInterval(load_more, 3000);
     $('.btnReply').click(reply_tweet);
-
     $('#btnPost').click(post_tweet);
 });
 
@@ -35,7 +34,6 @@ function post_tweet(event) {
         if (data['success']) {
             html = data['html']
             add_tweet(html, true)
-            $('.btnReply').click(reply_tweet);
         }
         $('#content_input').val("")
         $('#btnPost').removeAttr("disabled")
@@ -70,6 +68,7 @@ function add_tweet(html, animate) {
     $('#tweets_count').text(
         (parseInt($('#tweets_count').text()) + 1).toString()
     );
+    $('.btnReply').click(reply_tweet);
 }
 
 function add_reply(tweet_pk, html, animate) {
