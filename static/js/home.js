@@ -58,6 +58,9 @@ function add_tweet(html, animate) {
     } else {
         $(html).prependTo($('#tweets_block'))
     }
+    $('#tweets_count').text(
+        (parseInt($('#tweets_count').text()) + 1).toString()
+    );
 }
 
 function add_reply(tweet_pk, html, animate) {
