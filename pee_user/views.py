@@ -38,7 +38,7 @@ def signup(request):
         except ValidationError:
             return render(request,'user/signup.html', {'error':'Please use correct email'})
 
-        if User.objects.filter(username = email).exists():
+        if User.objects.filter(email = email).exists():
             return render(request,'user/signup.html', {'error':'Email Exists'})
         else:
             my_user = PeeUser.objects.create_user(
