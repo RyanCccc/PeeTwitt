@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from decorators import login_required
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.templatetags.static import static
 
 from pee_user.models import PeeUser
 from tweet.models import Tweet, Reply
@@ -81,7 +80,7 @@ def reply(request):
         <br>
         """
         try:
-            html = html.format(static(my_user.avatar.url), my_user.full_name(), reply.get_timestamp_str(), reply.content)
+            html = html.format(my_user.avatar.url, my_user.full_name(), reply.get_timestamp_str(), reply.content)
             context = {
                 'success':True,
                 'html':html,
@@ -162,7 +161,7 @@ def post_tweet(request):
                 </div>
                 """
         try:
-            html = html.format(tweet.pk, static(my_user.avatar.url), my_user.full_name(), tweet.get_timestamp_str(), tweet.content, static(my_user.avatar.url), tweet.pk)
+            html = html.format(tweet.pk, my_user.avatar.url, my_user.full_name(), tweet.get_timestamp_str(), tweet.content, my_user.avatar.url, tweet.pk)
             context = {
                 'success':True,
                 'html':html,
