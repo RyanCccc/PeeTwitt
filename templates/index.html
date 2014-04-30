@@ -13,11 +13,11 @@
 
     {% if error %}
         <div class="alert alert-error">{{ error }}</div>
-        {% endif %}
+    {% endif %}
         {% if email %}
         <div class="alert alert-error">
             <span>Verfication e-mail already sent! Check your mailbox.</span>
-            <button id="resend" type="submit" class="btn btn-primary">
+            <button id="resend" type="submit" class="btn btn-primary btn-sm">
                 Resend
             </button>
             <input id="created_email" type="hidden" value="{{ email }}"/>

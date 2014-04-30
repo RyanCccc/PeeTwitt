@@ -7,6 +7,19 @@
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 
+.profilebox{
+	height: 52%;
+	margin-bottom: 20px;
+	background-color: #fff;
+	border: 1px solid rgb(223, 223, 223);
+	border-radius: 10px;
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+	box-shadow: 0 1px 1px rgba(0,0,0,.05);
+	float: left;
+	padding-left: 0px;
+	padding-right:0px;
+	margin-right: 10px;
+}
 
 .resultbox>.box-heading {
 	color: #3298DB;
@@ -29,11 +42,12 @@
 	padding: 5px;
 	overflow-y: auto;
 	overflow-x: hidden;
-	height: 425px;
+	height: 1000px;
 }
 
 .post{
-	border-bottom: 1px solid #C0E1F3;
+	border-bottom: 3px solid #C0E1F3;
+	margin: 10px 0px 20px 0px;
 }
 
 .avatartweetpic{
@@ -42,7 +56,7 @@
 	max-height: 100px;
 	max-width: 100px;
 	border: #A9A9A9 1px solid;
-	border-radius: 3px;
+	border-radius-top: 10px;
 	width: expression(this.height >135 ? (135*(this.width/this.height)): auto);
 	height: expression(this.height >135 ? 135: auto);
 	margin: 2px;
@@ -73,6 +87,7 @@
 
 .reply{
 	border-top: 1px solid #F1C2E0;
+	margin-bottom: 20px;
 }
 
 .reply2{
