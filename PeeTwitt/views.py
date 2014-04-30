@@ -9,7 +9,7 @@ from django.contrib.auth import login, logout
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from pee_user.models import PeeUser
+from pee_user.models import PeeUser, ImageUploadForm
 from tweet.models import Tweet
 
 def index(request):
@@ -31,3 +31,13 @@ def home(request):
         'title':'New Tweets :',
     }
     return render(request, 'home.html', context)
+
+def upload_avatar(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            m = request.user.peeuser
+            m.avatar = form.cleaned_data['image']
+            m.save()
+            return redirect('home')
+    return HttpResponseForbidden('allowed only via POST')

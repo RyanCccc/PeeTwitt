@@ -6,5 +6,4 @@ urlpatterns = patterns('pee_user.views',
     url(r'^signin/$', 'signin', name='pee_user_signin'),
     url(r'^resend/$', 'resend', name='pee_user_resend'),
     url(r'^signout/$', 'signout', name='pee_user_signout'),
-    # url(r'^upload_pic/$', 'upload_pic', name='upload_pic'),
 )
