@@ -166,10 +166,12 @@ def notification(request):
     }
     return render(request, 'home.html', context)
 
-
-
-
-
+@login_required()
+def profile(request, pee_user_pk):
+    user = request.user
+    my_user = PeeUser.objects.get(user=user)
+    pee_user = PeeUser.objects.get(pk=pee_user_pk)
+    return render(request, 'user/profile.html')
 
 
 

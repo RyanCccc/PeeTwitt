@@ -79,7 +79,7 @@
             <ul class="nav navbar-nav nav-tabs">
                 <li><a href="{% url "home" %}">Home</a></li>
                 <li><a id="notification" href="{% url "tweet_notification" %}">Notification</a></li>
-                <li><a href="#">Me</a></li>
+                <li><a href="{% url 'tweet_profile' user.peeuser.pk %}">Me</a></li>
             </ul>
 
               <form>

@@ -7,4 +7,5 @@ urlpatterns = patterns('tweet.views',
     url(r'^test_ajax/$', 'test_ajax', name='tweet_test_ajax'),
     url(r'^history/$', 'history', name='tweet_history'),
     url(r'^notification/$', 'notification', name='tweet_notification'),
+    url(r'^([0-9]+)/$', 'profile', name='tweet_profile'),
 )
