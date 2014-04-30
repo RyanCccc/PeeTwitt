@@ -37,6 +37,10 @@ class PeeUser(models.Model):
     followings = models.ManyToManyField("self", related_name="followers")
     avatar = models.ImageField(upload_to='avatars', default = 'avatars/default.jpg')
     objects = PeeUserManager()
+
+    def full_name(self):
+        return self.user.first_name + ' ' + self.user.last_name
+
     def delete(self, *args, **kwargs):
         self.user.delete()
         return super(self.__class__, self).delete(*args, **kwargs)

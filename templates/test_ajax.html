@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block js %}
+<script src="{% static "js/home.js" %}"></script>
+{% endblock %}
+
+{% block welcomenav %}
+{% endblock %}
+{% block content %}
+<div class="container mybody">
+    <input id="test_load_more" type="button" value="Test Ajax for loading tweets">
+    <input id="test_reply" type="button" value="Test Ajax for replying">
+    <input id="test_post" type="button" value="Test Ajax for posting">
+</div>
+{% endblock %}

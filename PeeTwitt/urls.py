@@ -11,6 +11,6 @@ urlpatterns = patterns('PeeTwitt.views',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'index', name='index'),
     url(r'^home/$', 'home', name='home'),
-    url(r'^r/', include('tweet.urls')),
+    url(r'^t/', include('tweet.urls')),
     url(r'^account/', include('pee_user.urls')),
 )

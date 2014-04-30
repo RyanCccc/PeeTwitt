@@ -22,21 +22,13 @@ def index(request):
 def home(request):
     user = request.user
     my_user = PeeUser.objects.get(user=user)
-    tweets = []
-    for tweet in Tweet.objects.all().order_by('-timestamp'):
-        if tweet.author in my_user.followings:
-            tweets.append(tweet)
-            if len(tweets)>=10:
-                break
+    followings = list(my_user.followings.all())
+    followings.append(my_user)
+    tweets = Tweet.objects.filter(author__in=followings).order_by('-timestamp')
     context = {
         'user' : my_user,
         'tweets': tweets,
     }
     if tweets:
-        context['curr_pk'] = tweets[-1].pk
-    # import ipdb; ipdb.set_trace()
+        context['curr_pk'] = tweets[0].pk
     return render(request, 'home.html', context)
-
-
-
-
