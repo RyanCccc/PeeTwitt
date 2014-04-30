@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'tweet',
     'south',
     'storages',
+    'collectfast',
 )
 
 MIDDLEWARE_CLASSES = (
