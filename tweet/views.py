@@ -24,8 +24,12 @@ def load_more_tweets(request):
     try:
         tweets = Tweet.objects.filter(author__in=followings, timestamp__gt=curr_timestamp).order_by('-timestamp')
         if tweets:
+            print curr_timestamp_str
+            old_curr = curr_timestamp
             curr_timestamp = tweets[0].timestamp
             curr_timestamp_str = get_timestamp_str(curr_timestamp, True)
+            print curr_timestamp_str
+            print curr_timestamp>old_curr
             template = Template('{% for tweet in tweets %}{% include "single_tweet.html" %}{% endfor %}')
             c = Context({
                 'tweets': tweets,
