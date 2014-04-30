@@ -11,8 +11,17 @@ function load_more() {
         timestamp_now: timestamp_now,
     }, function(data) {
         if (data['success']) {
-            add_tweet(data['html'], true);
-            $('#timestamp_now').val(data['timestamp_now'])
+            if (data['has_new_tweets']) {
+                add_tweet(data['html'], true);
+                $('#timestamp_now').val(data['timestamp_now'])
+            }
+            notify_count = data['notify_count']
+            if (notify_count != 0) {
+                $('#notification').notify('You have ' + notify_count + ' notification', 'info')
+                $('.notifyjs-container').click(function(event) {
+                    window.location.href = "/t/notification/";
+                });
+            };
         };
     });
 }

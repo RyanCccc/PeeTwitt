@@ -23,6 +23,7 @@ def load_more_tweets(request):
     followings = list(my_user.get_following())
     try:
         tweets = Tweet.objects.filter(author__in=followings, timestamp__gt=curr_timestamp).order_by('-timestamp')
+        notify_count = Tweet.objects.filter(author=my_user, has_new_reply=True).count()
         if tweets:
             curr_timestamp = tweets[0].timestamp
             curr_timestamp_str = get_timestamp_str(curr_timestamp, True)
@@ -32,9 +33,9 @@ def load_more_tweets(request):
                 'my_user':my_user,
             })
             html = template.render(c)
-            notify_count = Tweet.objects.filter(author=my_user, has_new_reply=True).count()
             context = {
                 'success':True,
+                'has_new_tweets':True,
                 'html':html,
                 'timestamp_now':curr_timestamp_str,
                 'notify_count':notify_count,
@@ -42,7 +43,13 @@ def load_more_tweets(request):
             context_j = json.dumps(context)
             return HttpResponse(context_j, content_type="application/json")
         else:
-            return return_success(False)
+            context = {
+                'success':True,
+                'has_new_tweets':False,
+                'notify_count':notify_count,
+            }
+            context_j = json.dumps(context)
+            return HttpResponse(context_j, content_type="application/json")
     except Exception as e:
         return return_success(False, error=e)
 
@@ -78,8 +85,7 @@ def reply(request):
             }
             context_j = json.dumps(context)
             return HttpResponse(context_j, content_type="application/json")
-        except Exception as e:
-            print e
+        except:
             return return_success(False)
         return return_success()
     else:
