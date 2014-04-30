@@ -52,10 +52,10 @@ class Reply(models.Model):
 
 def get_timestamp_str(timestamp, detail=False):
     if detail:
-        return timestamp.strftime('%B %d, %Y, %H:%M:%S')
+        return timestamp.strftime('%B %d, %Y, %H:%M:%S:%f')
     return timestamp.strftime('%B %d, %Y, %H:%M')
 
 def get_timestamp(datetime_str, detail=False):
     if detail:
-        return datetime.strptime(datetime_str, '%B %d, %Y, %H:%M:%S')
+        return datetime.strptime(datetime_str, '%B %d, %Y, %H:%M:%S:%f')
     return datetime.strptime(datetime_str, '%B %d, %Y, %H:%M')

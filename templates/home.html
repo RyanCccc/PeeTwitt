@@ -63,7 +63,7 @@
                 {% for tweet in tweets %}
                     {% include "single_tweet.html" %}
                 {% endfor %}
-                <input id="timestamp_now" type='hidden' value='{% now "N j, Y, H:i:s" %}'>
+                <input id="timestamp_now" type='hidden' value='{% now "N j, Y, H:i:s:u" %}'>
             </div>
         </div>
     </div>
