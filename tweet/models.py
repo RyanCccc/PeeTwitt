@@ -1,6 +1,6 @@
+from datetime import datetime
 from django.db import models
 from pee_user.models import PeeUser
-from django.utils import formats
 
 
 class ReplyManager(models.Manager):
@@ -28,7 +28,11 @@ class Tweet(models.Model):
     has_new_reply = models.BooleanField(default=False)
 
     def get_timestamp_str(self):
-        return formats.date_format(self.timestamp, "DATETIME_FORMAT")
+        return get_timestamp_str(self.timestamp)
+
+    def set_timestamp_by_str(self, datetime_str):
+        self.timestamp = get_timestamp(datetime_str)
+        self.save()
 
 class Reply(models.Model):
     author = models.ForeignKey(PeeUser)
@@ -40,4 +44,18 @@ class Reply(models.Model):
         ordering = ['timestamp']
 
     def get_timestamp_str(self):
-        return formats.date_format(self.timestamp, "DATETIME_FORMAT")
+        return get_timestamp_str(self.timestamp)
+
+    def set_timestamp_by_str(self, datetime_str):
+        self.timestamp = get_timestamp(datetime_str)
+        self.save()
+
+def get_timestamp_str(timestamp, detail=False):
+    if detail:
+        return timestamp.strftime('%B %d, %Y, %H:%M:%S')
+    return timestamp.strftime('%B %d, %Y, %H:%M')
+
+def get_timestamp(datetime_str, detail=False):
+    if detail:
+        return datetime.strptime(datetime_str, '%B %d, %Y, %H:%M:%S')
+    return datetime.strptime(datetime_str, '%B %d, %Y, %H:%M')

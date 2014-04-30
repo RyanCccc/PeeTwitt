@@ -59,13 +59,12 @@
             <div id="heading" class="box-heading">
                 <h4 style="margin:0px;">New Tweets :</h4>
             </div>
-
             <div id="tweets_block" class="box-body">
                 {% for tweet in tweets %}
                     {% include "single_tweet.html" %}
                 {% endfor %}
+                <input id="timestamp_now" type='hidden' value='{% now "N j, Y, H:i:s" %}'>
             </div>
-
         </div>
     </div>
 </div>

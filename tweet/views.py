@@ -1,46 +1,50 @@
 import json
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from decorators import login_required
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.template import loader, Context
+from django.template import loader, Context, Template
 
 from pee_user.models import PeeUser
-from tweet.models import Tweet, Reply
+from tweet.models import Tweet, Reply, get_timestamp_str, get_timestamp
 
 # Create your views here.
 @csrf_exempt
 def load_more_tweets(request):
-    curr_pk = request.POST.get('curr_pk')
+    curr_timestamp_str = request.POST.get('timestamp_now')
     user = request.user
     try:
         my_user = PeeUser.objects.get(user=user)
-    except:
-        return return_success(False)
+        curr_timestamp = get_timestamp(curr_timestamp_str, True)
+    except Exception as e:
+        return return_success(False, error=e)
     followings = list(my_user.get_following())
-    followings.append(my_user)
-    tweets = Tweet.objects.filter(author__in=followings, pk__gt=curr_pk).order_by('-timestamp')
-    if tweets:
-        curr_pk = tweets[0].pk
-    print 'Hello'
-    tweets_obj = []    
-    for tweet in tweets:
-        tweet_obj = {
-            'author': tweet.author.full_name(),
-            'content': tweet.content,
-            'timestamp': tweet.get_timestamp_str(),
-        }
-        tweets_obj.append(tweet_obj)
-    notify_count = Tweet.objects.filter(author=my_user, has_new_reply=True).count()
-    context = {
-        'success':True,
-        'tweets':tweets_obj,
-        'curr_pk':curr_pk,
-        'notify_count':notify_count,
-    }
-    context_j = json.dumps(context)
-    return HttpResponse(context_j, content_type="application/json")
+    try:
+        tweets = Tweet.objects.filter(author__in=followings, timestamp__gt=curr_timestamp).order_by('-timestamp')
+        if tweets:
+            curr_timestamp = tweets[0].timestamp
+            curr_timestamp_str = get_timestamp_str(curr_timestamp, True)
+            template = Template('{% for tweet in tweets %}{% include "single_tweet.html" %}{% endfor %}')
+            c = Context({
+                'tweets': tweets,
+                'my_user':my_user,
+            })
+            html = template.render(c)
+            notify_count = Tweet.objects.filter(author=my_user, has_new_reply=True).count()
+            context = {
+                'success':True,
+                'html':html,
+                'timestamp_now':curr_timestamp_str,
+                'notify_count':notify_count,
+            }
+            context_j = json.dumps(context)
+            return HttpResponse(context_j, content_type="application/json")
+        else:
+            return return_success(False)
+    except Exception as e:
+        return return_success(False, error=e)
 
 @csrf_exempt
 def reply(request):
@@ -120,6 +124,9 @@ def post_tweet(request):
 def test_ajax(request):
     return render(request,'test_ajax.html')
 
-def return_success(success=True):
-    context_j = json.dumps({'success':success,})
+def return_success(success=True , error=None):
+    if error:
+        context_j = json.dumps({'success':success,'error':str(error),})
+    else:
+        context_j = json.dumps({'success':success,})
     return HttpResponse(context_j, content_type="application/json")

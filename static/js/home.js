@@ -1,16 +1,21 @@
 $(function() {
-    $('#test_load_more').click(function(event) {
-        $.post("/t/load_more_tweets/", {
-            curr_pk: -1
-        }, function(data) {
-            console.log(data);
-        });
-    });
-
+    setInterval(load_more, 3000);
     $('.btnReply').click(reply_tweet);
 
     $('#btnPost').click(post_tweet);
 });
+
+function load_more() {
+    timestamp_now = $('#timestamp_now').val()
+    $.post("/t/load_more_tweets/", {
+        timestamp_now: timestamp_now,
+    }, function(data) {
+        if (data['success']) {
+            add_tweet(data['html'], true);
+            $('#timestamp_now').val(data['timestamp_now'])
+        };
+    });
+}
 
 function post_tweet(event) {
     $('#btnPost').attr("disabled", "disabled")

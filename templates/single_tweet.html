@@ -15,7 +15,7 @@
                     <span><b id="tweet_author_name">{{ tweet.author.full_name }}</b>
                     </span>
                     at
-                    <span id="tweet_timestamp">{{ tweet.timestamp }}</span>
+                    <span id="tweet_timestamp">{{ tweet.get_timestamp_str }}</span>
                     <br>
                     <span id="tweet_content">{{ tweet.content }}</span>
                 </div>
@@ -45,6 +45,4 @@
             </div>
         </div>
     </div>
-
-
 </div>
