@@ -80,7 +80,7 @@ def reply(request):
         <br>
         """
         try:
-            html = html.format(my_user.avatar.url, my_user.full_name(), reply.get_timestamp_str(), reply.content)
+            html = html.format(my_user.get_img_url, my_user.full_name(), reply.get_timestamp_str(), reply.content)
             context = {
                 'success':True,
                 'html':html,
@@ -161,7 +161,7 @@ def post_tweet(request):
                 </div>
                 """
         try:
-            html = html.format(tweet.pk, my_user.avatar.url, my_user.full_name(), tweet.get_timestamp_str(), tweet.content, my_user.avatar.url, tweet.pk)
+            html = html.format(tweet.pk, my_user.get_img_url, my_user.full_name(), tweet.get_timestamp_str(), tweet.content, my_user.get_img_url, tweet.pk)
             context = {
                 'success':True,
                 'html':html,

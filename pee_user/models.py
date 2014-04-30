@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.models import User as Auth_User
 import string
 import random
+from django.templatetags.static import static
 
 class PeeUserManager(models.Manager):
     def create_user(
@@ -39,6 +40,9 @@ class PeeUser(models.Model):
                                            related_name='related_to')
     avatar = models.ImageField(upload_to='avatars', default = 'avatars/default.jpg')
     objects = PeeUserManager()
+
+    def get_img_url(self):
+        return static(self.avatar.url)
 
     def full_name(self):
         return self.user.first_name + ' ' + self.user.last_name
