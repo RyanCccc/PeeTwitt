@@ -13,4 +13,4 @@ urlpatterns = patterns('PeeTwitt.views',
     url(r'^home/$', 'home', name='home'),
     url(r'^t/', include('tweet.urls')),
     url(r'^account/', include('pee_user.urls')),
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
