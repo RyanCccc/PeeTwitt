@@ -1,0 +1,50 @@
+<div class="row no-gutter post" tweet_pk="{{ tweet.pk }}">
+    <!--post#1-->
+
+
+    <div class="col-md-12">
+        <div class="col-md-3" style="width:20%;">
+            <a href="#">
+                <img class="avatartweetpic" onload="" src="{{ tweet.author.get_img_url }}">
+            </a>
+        </div>
+
+        <div class="col-md-9" style="padding-left:0px">
+            <div class="post-right">
+                <div class="tweet">
+                    <span><b id="tweet_author_name">{{ tweet.author.full_name }}</b>
+                    </span>
+                    at
+                    <span id="tweet_timestamp">{{ tweet.timestamp }}</span>
+                    <br>
+                    <span id="tweet_content">{{ tweet.content }}</span>
+                </div>
+
+                <div class="comments">
+                    {% for reply in tweet.reply_set.all %}
+                        {% include "single_reply.html" %}
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-md-12 reply">
+            <div class="reply2">
+                <div class="col-xs-3" style="width:18%;">
+                    <a href="#">
+                        <img class="avatartweetpic" onload="" style="max-height:50px;max-width:50px;" src="{{ my_user.get_img_url }}">
+                    </a>
+                </div>
+
+                <div class="col-xs-9 post-right">
+                    <input type="text" class="form-control" name="reply" placeholder="Reply...">
+                    <button type="button" class="btn btn-primary btn-xs btnReply" name='button' value='reply' tweet_pk="{{ tweet.pk }}">reply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

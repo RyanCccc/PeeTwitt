@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from decorators import login_required
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.template import loader, Context
 
 from pee_user.models import PeeUser
 from tweet.models import Tweet, Reply
@@ -59,28 +60,13 @@ def reply(request):
     except:
         return return_success(False)   
     if reply:
-        html = """
-        <div style="border-top: 1px solid #C9C9C9;">
-            <div class="col-xs-2" style="width:18%;">
-                <a href="#">
-                <img class="avatartweetpic" onload="" style="max-height:40px;max-width:40px;" src="{0}">
-                </a>
-            </div>
-
-            <div class="post-right">
-                <div>
-                    <span><b>{1}</b>
-                    </span>
-                    at <span>{2}</span>
-                    <br>
-                    <span>{3}</span>
-                </div>
-            </div>
-        </div>
-        <br>
-        """
+        template = loader.get_template('single_reply.html')
+        c = Context({
+            'reply': reply,
+            'my_user':my_user,
+        })
         try:
-            html = html.format(my_user.get_img_url(), my_user.full_name(), reply.get_timestamp_str(), reply.content)
+            html = template.render(c)
             context = {
                 'success':True,
                 'html':html,
@@ -112,56 +98,13 @@ def post_tweet(request):
     except:
         return return_success(False)   
     if tweet:
-        html = """
-        <div class="row no-gutter post" tweet_pk="{0}">
-                    <!--post#1-->
-
-
-                    <div class="col-md-12">
-                        <div class="col-md-3" style="width:20%;">
-                            <a href="#">
-                                <img class="avatartweetpic" onload="" src="{1}">
-                            </a>
-                        </div>
-
-                        <div class="col-md-9" style="padding-left:0px">
-                            <div class="post-right">
-                                <div class="tweet">
-                                    <span ><b id="tweet_author_name">{2}</b>
-                                    </span>
-                                    at
-                                    <span id="tweet_timestamp">{3}</span>
-                                    <br>
-                                    <span id="tweet_content">{4}</span>
-                                </div>
-
-                                <div class="comments">
-                                    
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                        <div class="col-md-12 reply">
-                            <div class="reply2">
-                                <div class="col-xs-3" style="width:18%;">
-                                    <a href="#">
-                                        <img class="avatartweetpic" onload="" style="max-height:50px;max-width:50px;" src="{5}">
-                                    </a>
-                                </div>
-
-                                <div class="col-xs-9 post-right">
-                                    <input type="text" class="form-control" name="reply" placeholder="Reply...">
-                                    <button type="button" class="btn btn-primary btn-xs btnReply" name='button' value='reply' tweet_pk="{6}">reply</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                """
+        template = loader.get_template('single_tweet.html')
+        c = Context({
+            'tweet': tweet,
+            'my_user':my_user,
+        })
         try:
-            html = html.format(tweet.pk, my_user.get_img_url(), my_user.full_name(), tweet.get_timestamp_str(), tweet.content, my_user.get_img_url(), tweet.pk)
+            html = template.render(c)
             context = {
                 'success':True,
                 'html':html,

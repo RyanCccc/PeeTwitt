@@ -1,0 +1,20 @@
+<div style="border-top: 1px solid #C9C9C9;">
+    <!--reply #1-->
+    <div class="col-xs-2" style="width:18%;">
+        <a href="#">
+            <img class="avatartweetpic" onload="" style="max-height:40px;max-width:40px;" src="{{ reply.author.get_img_url }}">
+        </a>
+    </div>
+
+    <div class="post-right">
+        <div>
+            <span><b>{{ reply.author.full_name }}</b>
+            </span>
+            at
+            <span>{{ reply.timestamp }}</span>
+            <br>
+            <span>{{ reply.content }}</span>
+        </div>
+    </div>
+</div>
+<br>
