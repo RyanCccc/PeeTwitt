@@ -5,6 +5,16 @@ import string
 import random
 from django.templatetags.static import static
 
+
+def upload_avatar_to(instance, filename):
+    import os
+    from django.utils.timezone import now
+    filename_base, filename_ext = os.path.splitext(filename)
+    return 'avatars/%s%s' % (
+        now().strftime("%Y%m%d%H%M%S"),
+        filename_ext.lower(),
+    )
+
 class PeeUserManager(models.Manager):
     def create_user(
         self,
@@ -38,7 +48,7 @@ class PeeUser(models.Model):
     relationships = models.ManyToManyField('self', through='Relationship', 
                                            symmetrical=False, 
                                            related_name='related_to')
-    avatar = models.ImageField(upload_to='avatars', default = 'avatars/default.jpg')
+    avatar = models.ImageField(upload_to=upload_avatar_to, default = 'avatars/default.jpg')
     objects = PeeUserManager()
 
     def get_img_url(self):
@@ -101,3 +111,4 @@ class Relationship(models.Model):
 
 def key_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
+
