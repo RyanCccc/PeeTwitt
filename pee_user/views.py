@@ -60,8 +60,6 @@ def resend(request):
     my_user = user.peeuser
     verify_url = request.build_absolute_uri(reverse('pee_user_verify'))
     verify_url += '?' + 'key=' + my_user.active_key
-    #import ipdb; ipdb.set_trace()
-    print verify_url
     send_mail('Verification from PeeTwitt', 'Here is your verification url %s'%verify_url, 'purduetweet@gmail.com', [email,])
     result = json.dumps({'success':1})
     return HttpResponse(result, content_type="application/json")

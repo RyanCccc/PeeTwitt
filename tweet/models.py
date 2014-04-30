@@ -36,6 +36,8 @@ class Reply(models.Model):
     content = models.CharField(max_length=140)
     timestamp = models.DateTimeField(auto_now_add=True)
     objects = ReplyManager()
+    class Meta:
+        ordering = ['timestamp']
 
     def get_timestamp_str(self):
         return formats.date_format(self.timestamp, "DATETIME_FORMAT")
