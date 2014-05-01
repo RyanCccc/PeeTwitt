@@ -1,6 +1,5 @@
 body{
-	background-image: url('http://www.pptbz.com/pptpic/UploadFiles_6909/201202/2012022021341778.jpg');
-	background-repeat:round;
+	background-image: url('http://image.tianjimedia.com/uploadImages/2012/321/8CB88755P0Z6.jpg');
 }
 
 .mybody{
@@ -20,7 +19,7 @@ body{
 	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
 	background-image: url('http://wenwen.sogou.com/p/20090618/20090618172031-288814614.jpg');
-	background-repeat: round;
+	
 }
 
 .avatartweetpic{
