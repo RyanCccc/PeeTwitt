@@ -1,0 +1,33 @@
+<div class="padding">
+    <div class="avatarbox">
+        <!-- <div class="col-xs-4"> -->
+        <a href="#" class="avatarposition">
+            <img class="padding" onload="" src="{{ person.get_img_url }}" width="85" height="85" center center>
+        </a>
+        <p1 class="avatarposition" style="color: white"><b>{{ person.full_name }}</b>
+        </p1>
+        <!--  </div> -->
+    </div>
+
+</div>
+
+<nav class="navbar navbar-default" style="border-radius: 0px;">
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-static-top">
+            <li><a href="{% url "tweet_profile" person.pk %}">Tweets<br><span id="tweets_count" >{{ person.tweet_set.count }}</span></a>
+            </li>
+            <li><a href="{% url "following" person.pk %}">Following<br><span id="following_count">{{ person.get_following|length }}</span></a>
+            </li>
+            <li><a href="{% url "followers" person.pk %}">Follower<br><span id="followers_count">{{ person.get_followers|length }}</span></a>
+            </li>
+        </ul>
+
+
+        <ul class="nav navbar-nav navbar-right" style="margin-top:3%;">
+            <li>
+                {% if is_self %} {% include "upload_form.html" %} {% else %} {% include "follow_btn.html" %} {% endif %}
+            </li>
+        </ul>
+
+    </div>
+</nav>

@@ -1,12 +1,68 @@
 $(function() {
-    setInterval(load_more, 3000);
     $('.btnReply').click(reply_tweet);
     $('#btnPost').click(post_tweet);
     $('input[type=file]').change(function() {
         // select the form and submit
         $('#upload_avatar_form').submit();
     });
+    $('#upload_btn').click(function(event) {
+        $('input[type=file]').click()
+    });
+    $('#input_file').hide()
+    $('.follow_btn').click(follow)
+    $('.unfollow_btn').click(unfollow)
 });
+
+function follow(event) {
+    pk = $(this).attr('pk')
+    $.post("/account/follow/", {
+        pk: pk
+    }, function(data) {
+        if (data['success']) {
+            pk = data['pk']
+            get_follow_btn(pk).removeClass('follow_btn')
+            get_follow_btn(pk).removeClass('btn-success')
+            get_follow_btn(pk).addClass('unfollow_btn')
+            get_follow_btn(pk).addClass('btn-danger')
+            get_follow_btn(pk).text('unfollow')
+            if ($('#following_count').hasClass('not_profile')) {
+                $('#following_count').text(
+                    (parseInt($('#following_count').text()) + 1).toString()
+                );
+            };
+            refreshClickBind($('.follow_btn'), follow)
+            refreshClickBind($('.unfollow_btn'), unfollow)
+        }
+    });
+}
+
+function unfollow(event) {
+    pk = $(this).attr('pk')
+    $.post("/account/unfollow/", {
+        pk: pk
+    }, function(data) {
+        if (data['success']) {
+            pk = data['pk']
+            get_follow_btn(pk).removeClass('unfollow_btn')
+            get_follow_btn(pk).removeClass('btn-danger')
+            get_follow_btn(pk).addClass('follow_btn')
+            get_follow_btn(pk).addClass('btn-success')
+            get_follow_btn(pk).text('follow')
+            if ($('#following_count').hasClass('not_profile')) {
+                $('#following_count').text(
+                    (parseInt($('#following_count').text()) - 1).toString()
+                );
+            };
+            refreshClickBind($('.follow_btn'), follow)
+            refreshClickBind($('.unfollow_btn'), unfollow)
+        }
+    });
+}
+
+function refreshClickBind($btn, func) {
+    $btn.unbind('click');
+    $btn.click(func);
+}
 
 function load_more() {
     timestamp_now = $('#timestamp_now').val()
@@ -72,7 +128,7 @@ function add_tweet(html, animate) {
     $('#tweets_count').text(
         (parseInt($('#tweets_count').text()) + 1).toString()
     );
-    $('.btnReply').click(reply_tweet);
+    refreshClickBind($('.btnReply'), reply_tweet)
 }
 
 function add_reply(tweet_pk, html, animate) {
@@ -89,4 +145,8 @@ function get_tweet(tweet_pk) {
 
 function get_reply_btn(tweet_pk) {
     return $('.btnReply[tweet_pk=' + tweet_pk + ']')
+}
+
+function get_follow_btn(pee_user_pk) {
+    return $('.for_follow[pk=' + pee_user_pk + ']')
 }

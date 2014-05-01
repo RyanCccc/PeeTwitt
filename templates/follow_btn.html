@@ -1,0 +1,10 @@
+{% load extras %}
+{% if my_user|is_following:pee_user %}
+    <button class="btn btn-danger btn-sm unfollow_btn for_follow" pk="{{ pee_user.pk }}">
+        unfollow
+    </button>
+{% elif not my_user|equal:pee_user %}
+    <button class="btn btn-success btn-sm follow_btn for_follow" pk="{{ pee_user.pk }}">
+        follow
+    </button>
+{% endif %}

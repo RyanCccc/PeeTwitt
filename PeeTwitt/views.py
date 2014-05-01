@@ -32,12 +32,41 @@ def home(request):
     }
     return render(request, 'home.html', context)
 
+
+@login_required()
+def following(request, pk):
+    my_user = request.user.peeuser
+    person = PeeUser.objects.get(pk=pk)
+    pee_users = person.get_following()
+    context = {
+        'my_user':my_user,
+        'person':person,
+        'pee_users':pee_users,
+        'title':'Following :',
+    }
+    return render(request, 'follow.html', context)
+
+@login_required()
+def followers(request, pk):
+    my_user = request.user.peeuser
+    person = PeeUser.objects.get(pk=pk)
+    pee_users = person.get_followers()
+    context = {
+        'my_user':my_user,
+        'person':person,
+        'pee_users':pee_users,
+        'title':'Followers :',
+    }
+    return render(request, 'follow.html', context)
+
+
 def upload_avatar(request):
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             m = request.user.peeuser
             m.avatar = form.cleaned_data['image']
+            next_url = form.cleaned_data['next_url']
             m.save()
-            return redirect('home')
+            return redirect(next_url)
     return HttpResponseForbidden('allowed only via POST')

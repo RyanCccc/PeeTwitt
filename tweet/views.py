@@ -171,9 +171,16 @@ def profile(request, pee_user_pk):
     user = request.user
     my_user = PeeUser.objects.get(user=user)
     pee_user = PeeUser.objects.get(pk=pee_user_pk)
-    return render(request, 'user/profile.html')
-
-
+    is_self = False
+    if my_user==pee_user:
+        is_self = True
+    context = {
+        'my_user':my_user,
+        'person':pee_user,
+        'is_self':is_self,
+        'tweets':pee_user.tweet_set.all().order_by('-timestamp'),
+    }
+    return render(request, 'user/profile.html', context)
 
 
 
