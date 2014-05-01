@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% load staticfiles %} 
+
+{% block js %}
+<script src="{% static "js/home.js" %}"></script>
+{% endblock %}
+
+{% block welcomenav %} {% endblock %}
+
+{% block content %}
+
+
+<div class="container mybody"><!--container of whole body-->
+    <div class="col-md-7 myprofile">
+    	<div class="resultbox2">
+            <div id="heading" class="box-heading">
+                <h4 style="margin:0px;">Your followers</h4>
+            </div>
+            
+            <div class="box-body">
+                <!-- include "single_person.html" -->
+                <div class="row no-gutter post" tweet_pk="{{ tweet.pk }}">
+
+                    <div class="col-md-12" style="width:20%;">
+                        <a href="#">
+                            <img class="avatartweetpic" onload="" src="#">
+                        </a>
+                    </div>
+
+                    <div class="col-md-9" style="padding-left:0px">
+                        <div class="post-right">
+                            <div class="tweet">
+                                <span><b id="tweet_author_name">Green Tea Bitch</b>
+                                </span>
+                                <br>
+                                <button class="btn btn-danger btn-sm">
+                                    unfollow
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--the code above can be added to single_person.html-->
+                
+            </div>
+
+        </div>
+    </div>
+</div>

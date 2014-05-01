@@ -7,6 +7,7 @@
 	box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 
+
 .profilebox{
 	height: 52%;
 	margin-bottom: 20px;
@@ -21,7 +22,7 @@
 	margin-right: 10px;
 }
 
-.resultbox>.box-heading {
+.resultbox,.resultbox2>.box-heading {
 	color: #3298DB;
 	background-color: #ECFDFF;
 	border-color: #C0E1F3;
@@ -49,18 +50,6 @@
 	margin: 10px 0px 20px 0px;
 }
 
-.avatartweetpic{
-	vertical-align: middle;
-	text-align: center;
-	max-height: 100px;
-	max-width: 100px;
-	border: #A9A9A9 1px solid;
-	border-radius-top: 10px;
-	width: expression(this.height >135 ? (135*(this.width/this.height)): auto);
-	height: expression(this.height >135 ? 135: auto);
-	margin: 2px;
-	padding: 2px;
-}
 
 .avatarpostpic{
 	max-height: 50px;

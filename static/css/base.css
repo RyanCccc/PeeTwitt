@@ -26,8 +26,8 @@ body{
 .avatartweetpic{
 	vertical-align: middle;
 	text-align: center;
-	max-height: 100px;
-	max-width: 100px;
+	height: 100px;
+	width: 100px;
 	border: #A9A9A9 1px transparent;
 	border-radius: 10px;
 	width: expression(this.height >135 ? (135*(this.width/this.height)): auto);
