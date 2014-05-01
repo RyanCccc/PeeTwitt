@@ -83,10 +83,10 @@
                 <li><a href="{% url 'tweet_profile' user.peeuser.pk %}">Me</a></li>
             </ul>
 
-              <form>
-              <div class="navbar-form navbar-left form-group" role="search" action="#">
-                <input type="text" class="form-control" name="keyword" placeholder="Search by name">
-                <button type="submit" class="btn btn-primary" name='button' value='search'>
+              <form name="search_user" action="{% url 'pee_user_search' %}" method="GET">
+              <div class="navbar-form navbar-left form-group" role="search">
+                <input type="text" class="form-control" name="q" placeholder="Search by name">
+                <button type="submit" class="btn btn-primary">
                     <span class="glyphicon glyphicon-search"></span>
                     Go
                 </button>

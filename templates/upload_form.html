@@ -1,0 +1,8 @@
+<form id="upload_avatar_form" action="{% url "upload_avatar" %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <button id="upload_btn" type="button" class="btn btn-warning btn-sm">
+        <span class="glyphicon glyphicon-camera"></span>
+        Upload avatar
+    </button>
+    <input id="input_file" type="file" class="" name="image">
+    <input type="hidden" name="next_url" value="{{ request.get_full_path }}">
+</form>

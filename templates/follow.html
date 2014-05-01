@@ -8,19 +8,28 @@
 
 {% block content %}
 
-<div class="container mybody">
-    {% include 'profilebox.html' %}
-    <div class="col-md-8">
-        <div class="resultbox">
+
+<div class="container mybody"><!--container of whole body-->
+    <div class="col-md-7 myprofile">
+        <!--display the Avatar picture and post field-->
+        {% include 'profile_profilebox.html' %}
+
+        {% if is_self %}
+            {% include 'post_dialog.html' %}
+        {% endif %}
+
+        <div class="resultbox2">
             <div id="heading" class="box-heading">
-                <h4 style="margin:0px;">Search result :</h4>
+                <h4 style="margin:0px;">{{ title }}</h4>
             </div>
+            
             <div id="users_block" class="box-body">
                 {% for pee_user in pee_users %}
                     {% include "single_person.html" %}
                 {% endfor %}
             </div>
+
         </div>
-    </div>
 </div>
+
 {% endblock %}

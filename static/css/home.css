@@ -22,7 +22,7 @@
 	margin-right: 10px;
 }
 
-.resultbox,.resultbox2>.box-heading {
+.box-heading {
 	color: #3298DB;
 	background-color: #ECFDFF;
 	border-color: #C0E1F3;
@@ -50,6 +50,10 @@
 	margin: 10px 0px 20px 0px;
 }
 
+.person{
+	border-bottom: 3px solid #C0E1F3;
+	margin: 10px 0px 20px 0px;
+}
 
 .avatarpostpic{
 	max-height: 50px;

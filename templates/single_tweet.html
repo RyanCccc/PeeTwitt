@@ -4,7 +4,7 @@
 
     <div class="col-md-12">
         <div class="col-md-3" style="width:20%;">
-            <a href="#">
+            <a href="{% url 'tweet_profile' tweet.author.pk %}">
                 <img class="avatartweetpic" onload="" src="{{ tweet.author.get_img_url }}">
             </a>
         </div>

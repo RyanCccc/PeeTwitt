@@ -94,10 +94,14 @@ class PeeUser(models.Model):
     def get_followers(self):
         return self.get_related_to(RELATIONSHIP_FOLLOWING)
 
+    def is_following(self, person):
+        return person in self.get_relationships(RELATIONSHIP_FOLLOWING)
+
 
 class ImageUploadForm(forms.Form):
     """Image upload form."""
     image = forms.ImageField()
+    next_url = forms.CharField(widget=forms.HiddenInput())
 
 RELATIONSHIP_FOLLOWING = 1
 RELATIONSHIP_BLOCKED = 2
@@ -110,7 +114,6 @@ class Relationship(models.Model):
     from_person = models.ForeignKey(PeeUser, related_name='from_people')
     to_person = models.ForeignKey(PeeUser, related_name='to_people')
     status = models.IntegerField(choices=RELATIONSHIP_STATUSES)
-
 
 def key_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))

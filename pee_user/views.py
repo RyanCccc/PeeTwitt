@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from decorators import login_required
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate
@@ -9,9 +9,10 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
 import json
 
-from pee_user.models import PeeUser
+from pee_user.models import PeeUser, RELATIONSHIP_FOLLOWING, RELATIONSHIP_BLOCKED
 
 # Create your views here.
 def signup(request):
@@ -126,3 +127,65 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('index')
+
+@login_required()
+def search(request):
+    param = request.GET
+    search_str = param.get('q')
+    pee_users = PeeUser.objects.filter(Q(user__last_name__icontains=search_str) | Q(user__first_name__icontains=search_str))
+    context = {
+        'my_user':request.user.peeuser,
+        'pee_users':pee_users,
+    }
+    return render(request, 'searchuser.html', context)
+
+@csrf_exempt
+def follow(request):
+    try:
+        my_user = request.user.peeuser
+        pee_user = PeeUser.objects.get(pk=request.POST.get('pk'))
+        my_user.add_relationship(pee_user, RELATIONSHIP_FOLLOWING)
+        context = {
+            'success':True,
+            'pk':pee_user.pk,
+        }
+        context_j = json.dumps(context)
+        return HttpResponse(context_j, content_type="application/json")
+    except Exception as e:
+        return return_success(False, e)
+
+@csrf_exempt
+def unfollow(request):
+    try:
+        my_user = request.user.peeuser
+        pee_user = PeeUser.objects.get(pk=request.POST.get('pk'))
+        my_user.remove_relationship(pee_user, RELATIONSHIP_FOLLOWING)
+        context = {
+            'success':True,
+            'pk':pee_user.pk,
+        }
+        context_j = json.dumps(context)
+        return HttpResponse(context_j, content_type="application/json")
+    except Exception as e:
+        return return_success(False, e)
+
+def return_success(success=True , error=None):
+    if error:
+        context_j = json.dumps({'success':success,'error':str(error),})
+    else:
+        context_j = json.dumps({'success':success,})
+    return HttpResponse(context_j, content_type="application/json")
+
+
+
+
+
+
+
+
+
+
+
+
+
+

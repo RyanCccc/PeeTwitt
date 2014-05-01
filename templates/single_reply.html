@@ -1,7 +1,7 @@
 <div style="border-top: 1px solid #C9C9C9;">
     <!--reply #1-->
     <div class="col-xs-2" style="width:18%;">
-        <a href="#">
+        <a href="{% url 'tweet_profile' reply.author.pk %}">
             <img class="avatartweetpic" onload="" style="max-height:40px;max-width:40px;" src="{{ reply.author.get_img_url }}">
         </a>
     </div>

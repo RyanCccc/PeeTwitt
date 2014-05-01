@@ -12,83 +12,21 @@
 <div class="container mybody"><!--container of whole body-->
     <div class="col-md-7 myprofile">
         <!--display the Avatar picture and post field-->
-        <div class="padding">
-            <div class="avatarbox">
-                <!-- <div class="col-xs-4"> -->
-                <a href="#" class="avatarposition">
-                    <img class="padding" onload="" src="{{ my_user.get_img_url }}" width="85" height="85" center center>
-                </a>
-                <p1 class="avatarposition" style="color: white"><b>{{ user.peeuser.full_name }}</b>
-                </p1>
-                <!--  </div> -->
-            </div>
+        {% include 'profile_profilebox.html' %}
 
-        </div>
-
-        <nav class="navbar navbar-default" style="border-radius: 0px;">
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-static-top">
-                    <li><a href="{% url "tweet_history" %}">Tweets<br><span id="tweets_count" >{{ user.peeuser.tweet_set.count }}</span></a>
-                    </li>
-                    <li><a href="/account/profile/following">Following<br><span id="following_count">{{ user.peeuser.get_following|length }}</span></a>
-                    </li>
-                    <li><a href="/account/profile/follower">Follower<br><span id="followers_count">{{ user.peeuser.get_followers|length }}</span></a>
-                    </li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right" style="margin-top:3%;">
-                    <li><button class="btn btn-warning btn-sm">
-                        <span class="glyphicon glyphicon-camera"></span>
-                        Upload photo
-                    </button>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        {% if not no_post %}
-        <div class="padding" style="background-color: #ECFDFF;">
-            <form name="posttweet" action="#" method="POST">{% csrf_token %}
-                <textarea id="content_input" style="width: 100%; height: 50px;" placeholder="Tweet at here..."></textarea>
-
-                <button type="button" id="btnPost" class="btn btn-success">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span id="btnPostText">Post</span>
-                </button>
-            </form>
-        </div>
+        {% if is_self %}
+            {% include 'post_dialog.html' %}
         {% endif %}
 
         <div class="resultbox2">
             <div id="heading" class="box-heading">
-                <h4 style="margin:0px;">Your followers</h4>
+                <h4 style="margin:0px;">All tweets:</h4>
             </div>
             
-            <div class="box-body">
-                <!-- include "single_person.html" -->
-                <div class="row no-gutter post" tweet_pk="{{ tweet.pk }}">
-
-                    <div class="col-md-12" style="width:20%;">
-                        <a href="#">
-                            <img class="avatartweetpic" onload="" src="#">
-                        </a>
-                    </div>
-
-                    <div class="col-md-9" style="padding-left:0px">
-                        <div class="post-right">
-                            <div class="tweet">
-                                <span><b id="tweet_author_name">Green Tea Bitch</b>
-                                </span>
-                                <br>
-                                <button class="btn btn-danger btn-sm">
-                                    unfollow
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--the code above can be added to single_person.html-->
-
+            <div id="tweets_block" class="box-body">
+                {% for tweet in tweets %}
+                    {% include "single_tweet.html" %}
+                {% endfor %}
             </div>
 
         </div>
