@@ -20,6 +20,12 @@
                 <p1 class="avatarposition" style="color: white"><b>{{ user.peeuser.full_name }}</b>
                 </p1>
                 <!--  </div> -->
+                <form id="upload_avatar_form" action="{% url "upload_avatar" %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                    <p>
+                        <input id="id_image" type="file" class="" name="image">
+                    </p>
+                </form>
+
             </div>
 
         </div>

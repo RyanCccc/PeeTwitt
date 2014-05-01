@@ -126,14 +126,3 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('index')
-
-# def upload_pic(request):
-#     if request.method == 'POST':
-#         form = ImageUploadForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             m = PeeUser.objects.all()[0]
-#             m.avatar = form.cleaned_data['image']
-#             m.save()
-#             html = '<html><head></head><body><img src="%s" alt="Smile"></body></html>'%m.avatar.url
-#             return HttpResponse(html)
-#     return HttpResponseForbidden('allowed only via POST')

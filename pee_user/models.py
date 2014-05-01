@@ -51,6 +51,9 @@ class PeeUser(models.Model):
     avatar = models.ImageField(upload_to=upload_avatar_to, default = 'avatars/default.jpg')
     objects = PeeUserManager()
 
+    def save(self, *args, **kwargs):
+        super(PeeUser, self).save(*args, **kwargs)
+
     def get_img_url(self):
         return static(self.avatar.url)
 
@@ -92,9 +95,9 @@ class PeeUser(models.Model):
         return self.get_related_to(RELATIONSHIP_FOLLOWING)
 
 
-# class ImageUploadForm(forms.Form):
-#     """Image upload form."""
-#     image = forms.ImageField()
+class ImageUploadForm(forms.Form):
+    """Image upload form."""
+    image = forms.ImageField()
 
 RELATIONSHIP_FOLLOWING = 1
 RELATIONSHIP_BLOCKED = 2
