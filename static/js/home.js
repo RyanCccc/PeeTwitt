@@ -2,6 +2,10 @@ $(function() {
     setInterval(load_more, 3000);
     $('.btnReply').click(reply_tweet);
     $('#btnPost').click(post_tweet);
+    $('input[type=file]').change(function() {
+        // select the form and submit
+        $('#upload_avatar_form').submit();
+    });
 });
 
 function load_more() {
