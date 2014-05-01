@@ -22,7 +22,7 @@
 	margin-right: 10px;
 }
 
-.resultbox,.resultbox2>.box-heading {
+.resultbox>.box-heading, .resultbox2>.box-heading{
 	color: #3298DB;
 	background-color: #ECFDFF;
 	border-color: #C0E1F3;
